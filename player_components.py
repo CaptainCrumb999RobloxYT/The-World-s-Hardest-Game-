@@ -8,9 +8,11 @@ class PlayerMovement(Component):
         self.speed = speed
 
     def update(self): 
-        self.game_object.transform.position.y += input.all_axis["Vertical"].get_axis()
-        self.game_object.transform.position.x += input.all_axis["Horizontal"].get_axis()
-
+        inputs = pygame.Vector2(input.all_axis["Horizontal"].get_axis(), input.all_axis["Vertical"].get_axis())
+        if pygame.math.Vector2.length(inputs) != 0:
+            pygame.math.Vector2.normalize_ip(inputs)
+        self.game_object.transform.position.y += inputs.y
+        self.game_object.transform.position.x += inputs.x
 class PlayerRespawn(Component):
     def __init__(self, game_object, respawn_point: pygame.Vector2) -> None:
         super().__init__(game_object)

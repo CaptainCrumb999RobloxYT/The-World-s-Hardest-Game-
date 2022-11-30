@@ -8,6 +8,7 @@ from game_object import GameObject
 import input
 from enemy_movement import EnemyMovement
 from collider import Collider
+from ui import UI
 
 WIDTH = 640
 HEIGHT = 480
@@ -30,6 +31,7 @@ clock = pygame.time.Clock()     ## For syncing the FPS
 
 # Game Variables
 # Other helper objects
+ui = UI(screen, (WIDTH,HEIGHT))
 
 # Gameobjects
 #region Player
@@ -75,6 +77,8 @@ while running:
     screen.fill(BLACK)
     GameObject.update_all_game_objects()
 
+    # render all ui elements
+    ui.update()
     ## Done after drawing everything to the screen
     pygame.display.flip()       
 
