@@ -30,17 +30,27 @@ class LevelCounter(TextUI):
 
 
 class FailCounter(TextUI):
-    def __init__(self, screen, number, width):
-        super().__init__(screen, (width - 140,30), "FAILS: " + str(number), pygame.font.Font("arial.ttf", 64), ui_white)
+    def __init__(self, screen, width):
+        self.count = 0
+        super().__init__(screen, (width - 140,30), "FAILS: " + str(self.count), pygame.font.Font("arial.ttf", 64), ui_white)
 
     def render(self):
-            return super().render()
+        return super().render()
+
+    def update(self):
+        self.render()
+
+    def increment(self, increase = 1):
+        self.count += increase
+        self.update_text("FAILS: " + str(self.count))
+
+
 class UI:
     def __init__(self, screen, dimensions) -> None:
         self.screen = screen
         self.dimensions = dimensions
         self.level_counter = LevelCounter(screen, 1)
-        self.fail_counter = FailCounter(self.screen, 0, dimensions[0])
+        self.fail_counter = FailCounter(self.screen, dimensions[0])
 
     def render(self):
         self.level_counter.render()
