@@ -41,7 +41,7 @@ player_go = GameObject("player")
 player_go.transform.scale = Vector2(25, 25)
 player_go.transform.position = Vector2(WIDTH / 2, HEIGHT / 2)
 
-player_go.add_component(SpriteRenderer(player_go, "doesnt matter", RED))
+player_go.add_component(SpriteRenderer(player_go, "doesnt matter", RED, 1))
 player_go.add_component(PlayerMovement(player_go, 3))
 player_go.add_component(Collider(player_go))
 player_go.add_component(PlayerRespawn(player_go, Vector2(10,10), ui.fail_counter))
@@ -52,7 +52,7 @@ enemy_go = GameObject("enemy")
 enemy_go.transform.scale = Vector2(25, 25)
 enemy_go.transform.position = Vector2(0, 0)
 
-enemy_go.add_component(SpriteRenderer(enemy_go, "dosent matter", BLUE))
+enemy_go.add_component(SpriteRenderer(enemy_go, "dosent matter", BLUE, 1))
 points = [Vector2(0, 0) , Vector2(WIDTH, HEIGHT), Vector2(0, HEIGHT), Vector2(WIDTH, 0)]
 points.append(Vector2(WIDTH / 2, HEIGHT / 2))
 enemy_go.add_component(EnemyMovement(enemy_go, 3, points))
@@ -62,17 +62,17 @@ enemy_go.add_component(Collider(enemy_go))
 
 #region endzones
 start_zone = GameObject("start zone")
-start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", GREEN))
+start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", GREEN, 0))
 start_zone.transform.position = Vector2(25, HEIGHT / 2)
 start_zone.transform.scale = Vector2(50, HEIGHT)
 
 end_zone = GameObject("end zone")
-end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", GREEN))
+end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", GREEN, 0))
 end_zone.transform.position = Vector2(WIDTH - 25, HEIGHT / 2)
 end_zone.transform.scale = Vector2(50, HEIGHT)
-end_zone.add_component(EndZone(ui, player_go))
+end_zone.add_component(EndZone(end_zone, ui, player_go))
 
-#endregion
+#endregion endzones
 
 ## Game loop
 running = True
@@ -93,9 +93,11 @@ while running:
     screen.fill(BLACK)
     GameObject.update_all_game_objects()
 
+    SpriteRenderer.render_all()
+
     # render all ui elements
     ui.update()
     ## Done after drawing everything to the screen
-    pygame.display.flip()       
+    pygame.display.flip()
 
 pygame.quit()
