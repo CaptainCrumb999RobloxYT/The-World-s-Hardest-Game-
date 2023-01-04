@@ -23,7 +23,14 @@ class Transform(Component):
 
 class SpriteRenderer(Component):
     screen = None
-    render_layers = [[]]*3
+    render_layers = []
+
+    # for
+    # loop 3 times
+    for layer_number in range(3):
+        # add a new empty list into render layers with append
+        render_layers.append([])
+    
     '''
     [
         0: [start_zone, end_zone]
@@ -31,12 +38,12 @@ class SpriteRenderer(Component):
         2: [coin]
     ]
     '''
+    
     def __init__(self, game_object, sprite, color, layer) -> None:
         super().__init__(game_object)
         self.sprite = sprite
         self.color = color
         SpriteRenderer.render_layers[layer].append(self)
-        SpriteRenderer.print_render_layers()
 
     def render(self):
         pygame.draw.rect(SpriteRenderer.screen,self.color, self.game_object.transform.get_rect())
@@ -45,9 +52,3 @@ class SpriteRenderer(Component):
         for layer in SpriteRenderer.render_layers:
             for renderer in layer:
                 renderer.render()
-
-    def print_render_layers():
-        print(len(SpriteRenderer.render_layers[0]))
-        print(len(SpriteRenderer.render_layers[1]))
-        print(len(SpriteRenderer.render_layers[2]))
-        
