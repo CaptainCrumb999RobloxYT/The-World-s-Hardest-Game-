@@ -35,22 +35,9 @@ clock = pygame.time.Clock()     ## For syncing the FPS
 # Other helper objects
 ui = UI(screen, (WIDTH,HEIGHT))
 
-level_manager = LevelManager(ui)
+level_manager = LevelManager(ui, (WIDTH, HEIGHT))
 
 
-example_level = {
-    "player_position" : Vector2(WIDTH / 2, HEIGHT / 2),
-    "enemies" : [
-        {
-            "patrolPoints":[],
-            "speed":[]
-        },
-    ],
-    "end_zones":None
-}
-
-
-level_manager.load_level(example_level)
 
 
 # # Gameobjects
@@ -66,29 +53,12 @@ level_manager.load_level(example_level)
 # #endregion
 
 # #region Enemy
-# enemy_go = GameObject("enemy")
-# enemy_go.transform.scale = Vector2(25, 25)
-# enemy_go.transform.position = Vector2(0, 0)
 
-# enemy_go.add_component(SpriteRenderer(enemy_go, "dosent matter", BLUE, 1))
-# points = [Vector2(0, 0) , Vector2(WIDTH, HEIGHT), Vector2(0, HEIGHT), Vector2(WIDTH, 0)]
-# points.append(Vector2(WIDTH / 2, HEIGHT / 2))
-# enemy_go.add_component(EnemyMovement(enemy_go, 3, points))
-# enemy_go.add_component(Collider(enemy_go))
 
 # #endregion
 
 # #region endzones
-# start_zone = GameObject("start zone")
-# start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", GREEN, 0))
-# start_zone.transform.position = Vector2(25, HEIGHT / 2)
-# start_zone.transform.scale = Vector2(50, HEIGHT)
 
-# end_zone = GameObject("end zone")
-# end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", GREEN, 0))
-# end_zone.transform.position = Vector2(WIDTH - 25, HEIGHT / 2)
-# end_zone.transform.scale = Vector2(50, HEIGHT)
-# end_zone.add_component(EndZone(end_zone, ui, player_go))
 
 # #endregion endzones
 
