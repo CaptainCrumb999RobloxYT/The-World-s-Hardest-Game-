@@ -44,9 +44,13 @@ class SpriteRenderer(Component):
         self.sprite = sprite
         self.color = color
         SpriteRenderer.render_layers[layer].append(self)
+        self.show = True
 
     def render(self):
+        if not self.show:
+            return
         pygame.draw.rect(SpriteRenderer.screen,self.color, self.game_object.transform.get_rect())
+
 
     def render_all():
         for layer in SpriteRenderer.render_layers:

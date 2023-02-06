@@ -23,11 +23,15 @@ class TextUI:
 
 class LevelCounter(TextUI):
     def __init__(self, screen, number):
-        super().__init__(screen, (140,30), "LEVEL: " + str(number), pygame.font.Font("arial.ttf", 64), ui_white)
+        self.number = number
+        super().__init__(screen, (140,30), "LEVEL: " + str(self.number), pygame.font.Font("arial.ttf", 64), ui_white)
 
     def render(self):
         return super().render()
-
+    
+    def increment(self, increase = 1):
+        self.number += increase
+        self.update_text("LEVEL: " + str(self.number))
 
 class FailCounter(TextUI):
     def __init__(self, screen, width):
@@ -44,17 +48,30 @@ class FailCounter(TextUI):
         self.count += increase
         self.update_text("FAILS: " + str(self.count))
 
+class CoinCounter(TextUI):
+    def __init__(self, screen, coin_count):
+        self.coin_count = coin_count
+        super().__init__(screen, (430,30), "COIN: " + str(self.coin_count), pygame.font.Font("arial.ttf", 64), ui_white)
+
+    def render(self):
+        return super().render()
+    
+    def increment(self, increase = 1):
+        self.coin_count += increase
+        self.update_text("COIN: " + str(self.coin_count))
 
 class UI:
     def __init__(self, screen, dimensions) -> None:
         self.screen = screen
         self.dimensions = dimensions
         self.level_counter = LevelCounter(screen, 1)
-        self.fail_counter = FailCounter(self.screen, dimensions[0])
+        self.fail_counter = FailCounter(screen, dimensions[0])
+        self.coin_counter = CoinCounter(screen, 0)
 
     def render(self):
         self.level_counter.render()
         self.fail_counter.render()
+        self.coin_counter.render()
 
     def update(self):
         self.render()

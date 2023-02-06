@@ -9,6 +9,5 @@ class EndZone(Component):
 
     def on_collision(self, other):
         # if the other is the player, go to the next level
-        print(other.name)
         if other.name == "player":
             self.level_manager.next_level()

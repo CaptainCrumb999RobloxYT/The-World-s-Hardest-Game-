@@ -12,7 +12,7 @@ from endzone import EndZone
 from ui import UI
 from level import LevelManager
 
-WIDTH = 640
+WIDTH = 854
 HEIGHT = 480
 FPS = 60
 

@@ -15,14 +15,10 @@ class EnemyMovement(Component):
         return self.game_object.transform.position.distance_to(self.patrol_points[self.current_point])
 
     def update(self):
-        print(self.patrol_points, self.patrol_points[self.current_point][0], self.patrol_points[self.current_point][1])
-        print(self.distance_to_current_point())
 
         if self.distance_to_current_point() < EnemyMovement.distance_to_reach_point:
             self.current_point += 1
-            print(self.current_point, len(self.patrol_points))
             if self.current_point >= len(self.patrol_points):
-                print("reached end of patrol points")
                 self.current_point = 0
 
         #self.game_object.transform.position = self.game_object.transform.position.move_towards(self.patrol_points[self.current_point], self.speed)

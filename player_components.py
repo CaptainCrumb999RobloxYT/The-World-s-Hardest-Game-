@@ -1,6 +1,7 @@
-from component import Component
+from component import Component, SpriteRenderer
 import pygame
 import input
+from collider import Collider
 from ui import TextUI
 
 class PlayerMovement(Component):
@@ -20,16 +21,24 @@ class PlayerMovement(Component):
         self.game_object.transform.position.x += movement.x
 
 class PlayerRespawn(Component):
-    def __init__(self, game_object, respawn_point: pygame.Vector2, fail_counter_text: TextUI) -> None:
+    def __init__(self, game_object, respawn_point: pygame.Vector2, fail_counter_text: TextUI, coin_counter_text: TextUI) -> None:
         super().__init__(game_object)
         self.respawn_point = respawn_point
         self.fail_counter_text = fail_counter_text
+        self.coin_counter_text = coin_counter_text
         
     def on_collision(self, game_object):
         if game_object.name == "end zone":
             return
+        if game_object.name == "coin":
+            self.coin_counter_text.increment()
+            game_object.get_component(SpriteRenderer).show = False
+            game_object.get_component(Collider).enabled = False
+            return
         self.respawn()
         self.fail_counter_text.increment()
+
+        
 
     def respawn(self):
         self.game_object.transform.position = pygame.math.Vector2(30, 480 / 2)
