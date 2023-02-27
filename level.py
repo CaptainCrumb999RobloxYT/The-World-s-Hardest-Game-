@@ -119,7 +119,7 @@ class LevelManager:
         self.screenHeight = screen[1]
         self.current_level = 0
         self.load_level(levels[self.current_level])
-
+        self.won = False
 
     def load_level(self, level:dict):
         # Loading in the player
@@ -181,6 +181,7 @@ class LevelManager:
     def next_level(self):
         if(self.current_level == len(levels) - 1):
             print("CONGRATS YOU WIN")
+            self.won = True
             return
         GameObject.all_game_objects = []
         SpriteRenderer.render_layers = []

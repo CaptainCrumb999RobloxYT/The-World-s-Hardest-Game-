@@ -2,6 +2,7 @@ import pygame
 from pygame.math import Vector2
 import random
 import time
+import xml
 from component import SpriteRenderer
 from player_components import PlayerMovement, PlayerRespawn
 from game_object import GameObject
@@ -89,5 +90,8 @@ while running:
     ui.update()
     ## Done after drawing everything to the screen
     pygame.display.flip()
+
+    if level_manager.won:
+        running = False
 
 pygame.quit()
