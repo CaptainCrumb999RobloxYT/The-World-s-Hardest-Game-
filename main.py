@@ -23,13 +23,14 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 
 ## initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  ## For sound
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 SpriteRenderer.screen = screen
-pygame.display.set_caption("<Your game>")
+pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
 
 # Game Variables

@@ -1,35 +1,43 @@
-import xml.dom.minidom
+import pygame
 
-def create_position(doc,node,x,y,x_type = "abs",y_type = "abs"):
-    x_node = doc.createElement("x").setAttribute("type", x_type)
-    x_text = doc.createTextNode(x)
-    x_node.appendChild(x_text)
-    node.appendChild(x_node)
-    y_node = doc.createElement("y").setAttribute("type", y_type)
-    y_text = doc.createTextNode(y)
-    y_node.appendChild(y_text)
-    node.appendChild(y_node)
+pygame.init()
 
-document = xml.dom.minidom.Document()
-level = document.createElement("level").setAttribute("index", "0")
-document.appendChild(level)
+WIDTH = 854
+HEIGHT = 480
+FPS = 60
 
-player_position = document.createElement("player_position")
-level.appendChild(player_position)
+# Define Colors 
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+GRAY = (100, 100, 100)
 
-create_position(document,player_position,30,0.5,y_type = "rel")
+modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY}
+mode = "select"
 
-enemies = document.createElement("enemies")
-level.appendChild(enemies)
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("The World's Hardest Game")
+clock = pygame.time.Clock()     ## For syncing the FPS
 
-coins = document.createElement("coins")
-level.appendChild(coins)
+running = True
+while running:
 
-coin = document.createElement("coin")
-coins.appendChild(coin)
+    # Process input/events
+    delta_time = clock.tick(FPS) / 1000    ## will make the loop run at the same speed all the time
+    for event in pygame.event.get():        # gets all the events which have occured till now and keeps tab of them.
+        ## listening for the the X button at the top
+        if event.type == pygame.QUIT:
+            running = False
+    
 
-create_position(document,coin,430,0.5,y_type = "rel")
+    # Game Logic
+    keys = pygame.key.get_pressed()
 
-document.writexml(open("level1.xml", "w"), indent = "    ", addindent = "    ", newl = "\n")
-
-document.unlink()
+    # Draw/render
+    screen.fill(BLACK)
+    pygame.draw.rect(screen,GREEN,(0,0,50,HEIGHT))
+    pygame.draw.rect(screen,GREEN,(WIDTH - 50,0,50,HEIGHT))
+    pygame.display.update()

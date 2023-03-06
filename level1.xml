@@ -1,14 +1,14 @@
-<level index = "0">
-    <player_position>
-        <x type = "abs">30</x>
-        <y type = "rel">0.5</y>
-    </player_position>
-    <enemies>
-    </enemies>
-    <coins>
-        <coin>
-            <x type = "abs">430</x>
-            <y type = "rel">0.5</y>
-        </coin>
-    </coins>
-</level>
+<?xml version="1.0" ?>
+    <level index="0">
+        <player_position>
+            <x type="abs">30</x>
+            <y type="rel">0.5</y>
+        </player_position>
+        <enemies/>
+        <coins>
+            <coin>
+                <x type="abs">430</x>
+                <y type="rel">0.5</y>
+            </coin>
+        </coins>
+    </level>
