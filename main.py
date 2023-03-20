@@ -13,8 +13,8 @@ from endzone import EndZone
 from ui import UI
 from level import LevelManager
 
-WIDTH = 854
-HEIGHT = 480
+WIDTH = 850
+HEIGHT = 500
 FPS = 60
 
 # Define Colors 
