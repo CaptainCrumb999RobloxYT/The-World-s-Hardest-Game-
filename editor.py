@@ -26,7 +26,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
 
-tiles = [[None] * TILE_COUNT_Y] * TILE_COUNT_X
+tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
 
 def get_nearest_grid_square(pos):
     pos /= TILE_SIZE
@@ -39,6 +39,13 @@ toolbar_button = pygame.Rect(WIDTH - 50,0,50,50)
 toolbar_background = pygame.Rect(0,0,WIDTH,100)
 sidebar_left = pygame.Rect(0,0,50,HEIGHT)
 sidebar_right = pygame.Rect(WIDTH - 50,0,50,HEIGHT)
+
+class Tile:
+    def __init__(self, position, type):
+        self.pos = position
+        self.type = type
+    def draw(self):
+        pygame.draw.rect(screen, modes[self.type], (self.pos.x, self.pos.y, TILE_SIZE,TILE_SIZE))
 
 running = True
 while running:
@@ -64,9 +71,20 @@ while running:
     pygame.draw.rect(screen,GREEN,sidebar_left)
     pygame.draw.rect(screen,GREEN,sidebar_right)
 
+    for column in tiles:
+        for tile in column:
+            if not tile:
+                continue
+            tile.draw()
+
     gridpos = get_nearest_grid_square(mouse_vector - pygame.Vector2(TILE_SIZE // 2))
     if not (sidebar_left.collidepoint(mouse_pos) or sidebar_right.collidepoint(mouse_pos) or toolbar_visible):
-        pygame.draw.rect(screen,WHITE,(gridpos.x,gridpos.y,TILE_SIZE,TILE_SIZE))
+        if mode != "select":
+            pygame.draw.rect(screen,modes[mode],(gridpos.x,gridpos.y,TILE_SIZE,TILE_SIZE))
+            if click:
+                tile_x = int(gridpos.x / TILE_SIZE)
+                tile_y = int(gridpos.y / TILE_SIZE)
+                tiles[tile_x][tile_y] = Tile(gridpos,mode)
 
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)
