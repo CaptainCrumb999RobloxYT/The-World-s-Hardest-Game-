@@ -24,7 +24,7 @@ class TextUI:
 class LevelCounter(TextUI):
     def __init__(self, screen, number):
         self.number = number
-        super().__init__(screen, (140,30), "LEVEL: " + str(self.number), pygame.font.Font("arial.ttf", 64), ui_white)
+        super().__init__(screen, (140,30), "LEVEL: " + str(self.number), pygame.font.Font("cavestory.ttf", 64), ui_white)
 
     def render(self):
         return super().render()
@@ -36,7 +36,7 @@ class LevelCounter(TextUI):
 class FailCounter(TextUI):
     def __init__(self, screen, width):
         self.count = 0
-        super().__init__(screen, (width - 140,30), "FAILS: " + str(self.count), pygame.font.Font("arial.ttf", 64), ui_white)
+        super().__init__(screen, (width - 140,30), "FAILS: " + str(self.count), pygame.font.Font("cavestory.ttf", 64), ui_white)
 
     def render(self):
         return super().render()
@@ -51,7 +51,7 @@ class FailCounter(TextUI):
 class CoinCounter(TextUI):
     def __init__(self, screen, coin_count):
         self.coin_count = coin_count
-        super().__init__(screen, (430,30), "COIN: " + str(self.coin_count), pygame.font.Font("arial.ttf", 64), ui_white)
+        super().__init__(screen, (430,30), "COIN: " + str(self.coin_count), pygame.font.Font("cavestory.ttf", 64), ui_white)
 
     def render(self):
         return super().render()

@@ -13,14 +13,20 @@ FPS = 60
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+MEDIUM_RED = (184, 0, 0)
+DARK_RED = (127, 0, 0)
 GREEN = (0, 255, 0)
+MEDIUM_GREEN = (0, 184, 0)
+DARK_GREEN = (0, 127, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 GRAY = (100, 100, 100)
 LIGHT_GRAY = (150, 150, 150)
 
-modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY}
+modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "eraser":WHITE}
 mode = "select"
+selected = None
+patrolpoint_mode = 0
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The World's Hardest Game")
@@ -39,6 +45,8 @@ toolbar_button = pygame.Rect(WIDTH - 50,0,50,50)
 toolbar_background = pygame.Rect(0,0,WIDTH,100)
 sidebar_left = pygame.Rect(0,0,50,HEIGHT)
 sidebar_right = pygame.Rect(WIDTH - 50,0,50,HEIGHT)
+add_patrolpoint_button = pygame.Rect(0,HEIGHT - 100,50,50)
+remove_patrolpoint_button = pygame.Rect(0,HEIGHT - 50,50,50)
 
 class Tile:
     def __init__(self, position, type):
@@ -46,6 +54,13 @@ class Tile:
         self.type = type
     def draw(self):
         pygame.draw.rect(screen, modes[self.type], (self.pos.x, self.pos.y, TILE_SIZE,TILE_SIZE))
+
+class Enemy(Tile):
+    def __init__(self, position):
+        super().__init__(position, "enemy")
+        self.patrolpoints = []
+    def add_patrolpoints(self, pos):
+        self.patrolpoints.append(pos)
 
 running = True
 while running:
@@ -77,13 +92,23 @@ while running:
                 continue
             tile.draw()
 
+    if mode != "select":
+        selected = None
+
     gridpos = get_nearest_grid_square(mouse_vector - pygame.Vector2(TILE_SIZE // 2))
     if not (sidebar_left.collidepoint(mouse_pos) or sidebar_right.collidepoint(mouse_pos) or toolbar_visible):
         if mode != "select":
             pygame.draw.rect(screen,modes[mode],(gridpos.x,gridpos.y,TILE_SIZE,TILE_SIZE))
-            if click:
-                tile_x = int(gridpos.x / TILE_SIZE)
-                tile_y = int(gridpos.y / TILE_SIZE)
+        if click:
+            tile_x = int(gridpos.x / TILE_SIZE)
+            tile_y = int(gridpos.y / TILE_SIZE)
+            if mode == "eraser":
+                tiles[tile_x][tile_y] = None
+            elif mode == "enemy":
+                tiles[tile_x][tile_y] = Enemy(gridpos)
+            elif mode == "select":
+                selected = tiles[tile_x][tile_y]
+            else:
                 tiles[tile_x][tile_y] = Tile(gridpos,mode)
 
     if toolbar_visible:
@@ -94,7 +119,7 @@ while running:
         for m in modes:
             i += 1
             x_pos = screen_fraction * i - screen_fraction / 2
-            if modes[m] == modes[mode]:
+            if m == mode:
                 pygame.draw.rect(screen,BLACK,(x_pos - 35,15,70,70))
             mode_rect = pygame.Rect(x_pos - 25,25,50,50)
             pygame.draw.rect(screen,modes[m],mode_rect)
@@ -104,4 +129,9 @@ while running:
     else:
         toolbar_visible = toolbar_button.collidepoint(mouse_pos)
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_button)
+
+    if isinstance(selected, Enemy):
+        pygame.draw.rect(screen, DARK_GREEN, add_patrolpoint_button)
+        pygame.draw.rect(screen, DARK_RED, remove_patrolpoint_button)
+    
     pygame.display.update()
