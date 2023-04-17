@@ -5,6 +5,7 @@ pygame.init()
 WIDTH = 850
 HEIGHT = 500
 TILE_SIZE = 25
+TILE_SIZE_HALF = TILE_SIZE / 2
 TILE_COUNT_X = WIDTH // TILE_SIZE
 TILE_COUNT_Y = HEIGHT // TILE_SIZE
 FPS = 60
@@ -59,8 +60,21 @@ class Enemy(Tile):
     def __init__(self, position):
         super().__init__(position, "enemy")
         self.patrolpoints = []
-    def add_patrolpoints(self, pos):
+    def add_patrolpoint(self, pos):
+        if pos in self.patrolpoints: return
         self.patrolpoints.append(pos)
+    def remove_patrolpoint(self, pos):
+        if not pos in self.patrolpoints: return
+        self.patrolpoints.remove(pos)
+    def draw_patrolpoints(self):
+        center_offset = pygame.Vector2(TILE_SIZE_HALF, TILE_SIZE_HALF)
+        last_point = self.pos + center_offset
+        for point in self.patrolpoints:
+            center = point + center_offset
+            if last_point: pygame.draw.line(screen, WHITE, center, last_point, 2)
+            last_point = center
+            pygame.draw.circle(screen, WHITE, center, TILE_SIZE_HALF)
+        
 
 running = True
 while running:
@@ -95,6 +109,10 @@ while running:
     if mode != "select":
         selected = None
 
+    is_enemy = isinstance(selected, Enemy)
+    if is_enemy: selected.draw_patrolpoints()
+
+
     gridpos = get_nearest_grid_square(mouse_vector - pygame.Vector2(TILE_SIZE // 2))
     if not (sidebar_left.collidepoint(mouse_pos) or sidebar_right.collidepoint(mouse_pos) or toolbar_visible):
         if mode != "select":
@@ -107,7 +125,13 @@ while running:
             elif mode == "enemy":
                 tiles[tile_x][tile_y] = Enemy(gridpos)
             elif mode == "select":
-                selected = tiles[tile_x][tile_y]
+                if patrolpoint_mode != 0:
+                    if patrolpoint_mode > 0:
+                        selected.add_patrolpoint(gridpos)
+                    else:
+                        selected.remove_patrolpoint(gridpos)
+                else:
+                    selected = tiles[tile_x][tile_y]
             else:
                 tiles[tile_x][tile_y] = Tile(gridpos,mode)
 
@@ -131,7 +155,11 @@ while running:
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_button)
 
     if isinstance(selected, Enemy):
-        pygame.draw.rect(screen, DARK_GREEN, add_patrolpoint_button)
-        pygame.draw.rect(screen, DARK_RED, remove_patrolpoint_button)
-    
+        pygame.draw.rect(screen, DARK_GREEN if patrolpoint_mode <= 0 else MEDIUM_GREEN, add_patrolpoint_button)
+        pygame.draw.rect(screen, DARK_RED if patrolpoint_mode >= 0 else MEDIUM_RED, remove_patrolpoint_button)
+
+        if add_patrolpoint_button.collidepoint(mouse_pos) and click: patrolpoint_mode = 1 if patrolpoint_mode < 1 else 0
+        if remove_patrolpoint_button.collidepoint(mouse_pos) and click: patrolpoint_mode = -1 if patrolpoint_mode > -1 else 0
+    else:
+        patrolpoint_mode = 0
     pygame.display.update()
