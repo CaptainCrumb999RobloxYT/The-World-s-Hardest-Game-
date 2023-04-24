@@ -12,24 +12,41 @@ def create_position(doc,node,x,y,x_type = "abs",y_type = "abs"):
     y_node.appendChild(y_text)
     node.appendChild(y_node)
 
-document = xml.dom.minidom.Document()
-level = document.createElement("level")
-level.setAttribute("index", "0")
-document.appendChild(level)
+def create_patrol_point(doc, node, pos):
+    patrol_point_element = doc.createElement("patrol_point")
+    node.appendChild(patrol_point_element)
+    create_position(doc, patrol_point_element, pos.x, pos.y)
 
-player_position = document.createElement("player_position")
-level.appendChild(player_position)
+def create_enemy(doc, node, enemy):
+    enemy_element = doc.createElement("enemy")
+    node.appendChild(enemy_element)
+    patrol_points_element = doc.createElement("patrol_points")
+    enemy_element.appendChild(patrol_points_element)
+    for point in enemy.patrolpoints:
+        create_patrol_point(doc, patrol_points_element, point)
 
-create_position(document,player_position,30,0.5,y_type = "rel")
+def build_level(player_pos, enemies, coins):
+    document = xml.dom.minidom.Document()
+    level = document.createElement("level")
+    level.setAttribute("index", "0")
+    document.appendChild(level)
 
-enemies = document.createElement("enemies")
-level.appendChild(enemies)
+    player_pos_element = document.createElement("player_position")
+    level.appendChild(player_pos_element)
 
-coins = document.createElement("coins")
-level.appendChild(coins)
+    create_position(document,player_pos_element,player_pos.x,player_pos.y)
+
+
+
+    enemies_element = document.createElement("enemies")
+    level.appendChild(enemies_element)
+
+    coins_element = document.createElement("coins")
+    level.appendChild(coins_element)
+    
 
 coin = document.createElement("coin")
-coins.appendChild(coin)
+coins_element.appendChild(coin)
 
 create_position(document,coin,430,0.5,y_type = "rel")
 

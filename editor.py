@@ -24,7 +24,7 @@ YELLOW = (255, 255, 0)
 GRAY = (100, 100, 100)
 LIGHT_GRAY = (150, 150, 150)
 
-modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "eraser":WHITE}
+modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "player":RED, "eraser":WHITE}
 mode = "select"
 selected = None
 patrolpoint_mode = 0
@@ -34,6 +34,7 @@ pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
 
 tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
+player_pos = None
 
 def get_nearest_grid_square(pos):
     pos /= TILE_SIZE
@@ -120,10 +121,16 @@ while running:
         if click:
             tile_x = int(gridpos.x / TILE_SIZE)
             tile_y = int(gridpos.y / TILE_SIZE)
-            if mode == "eraser":
+            if mode == "player":
+                if not tiles[tile_x][tile_y]:
+                    player_pos = gridpos
+            elif mode == "eraser":
+                if gridpos == player_pos:
+                    player_pos = None
                 tiles[tile_x][tile_y] = None
             elif mode == "enemy":
-                tiles[tile_x][tile_y] = Enemy(gridpos)
+                if not gridpos == player_pos:
+                    tiles[tile_x][tile_y] = Enemy(gridpos)
             elif mode == "select":
                 if patrolpoint_mode != 0:
                     if patrolpoint_mode > 0:
@@ -132,8 +139,11 @@ while running:
                         selected.remove_patrolpoint(gridpos)
                 else:
                     selected = tiles[tile_x][tile_y]
-            else:
+            elif not gridpos == player_pos:
                 tiles[tile_x][tile_y] = Tile(gridpos,mode)
+
+    if player_pos:
+        pygame.draw.rect(screen, modes["player"], (player_pos.x, player_pos.y, TILE_SIZE, TILE_SIZE))
 
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)
@@ -153,6 +163,8 @@ while running:
     else:
         toolbar_visible = toolbar_button.collidepoint(mouse_pos)
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_button)
+
+    
 
     if isinstance(selected, Enemy):
         pygame.draw.rect(screen, DARK_GREEN if patrolpoint_mode <= 0 else MEDIUM_GREEN, add_patrolpoint_button)
