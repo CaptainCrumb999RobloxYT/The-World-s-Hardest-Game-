@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+  <level index="0">
+    <player_position>
+      <x type="abs">400.0</x>
+      <y type="abs">225.0</y>
+    </player_position>
+    <enemies>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">350.0</x>
+            <y type="abs">175.0</y>
+          </patrol_point>
+          <patrol_point>
+            <x type="abs">350.0</x>
+            <y type="abs">275.0</y>
+          </patrol_point>
+          <patrol_point>
+            <x type="abs">450.0</x>
+            <y type="abs">275.0</y>
+          </patrol_point>
+          <patrol_point>
+            <x type="abs">450.0</x>
+            <y type="abs">175.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+    </enemies>
+    <coins>
+      <coin>
+        <x type="abs">700.0</x>
+        <y type="abs">225.0</y>
+      </coin>
+    </coins>
+  </level>
