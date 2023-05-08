@@ -159,7 +159,7 @@ while running:
                 if tile.type == "enemy": export_enemies.append(tile)
                 elif tile.type == "coin": export_coins.append(tile)
                 elif tile.type == "wall": export_walls.append(tile)
-        build_level(player_pos, export_enemies, export_coins, "text.xml")
+        build_level(player_pos, export_enemies, export_coins, "test.xml")
 
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)

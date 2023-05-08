@@ -21,11 +21,12 @@ class PlayerMovement(Component):
         self.game_object.transform.position.x += movement.x
 
 class PlayerRespawn(Component):
-    def __init__(self, game_object, respawn_point: pygame.Vector2, fail_counter_text: TextUI, coin_counter_text: TextUI) -> None:
+    def __init__(self, game_object, respawn_point: pygame.Vector2, fail_counter_text: TextUI, coin_counter_text: TextUI, level_manager) -> None:
         super().__init__(game_object)
         self.respawn_point = respawn_point
         self.fail_counter_text = fail_counter_text
         self.coin_counter_text = coin_counter_text
+        self.level_manager = level_manager
         
     def on_collision(self, game_object):
         if game_object.name == "end zone":
@@ -41,4 +42,4 @@ class PlayerRespawn(Component):
         
 
     def respawn(self):
-        self.game_object.transform.position = pygame.math.Vector2(30, 480 / 2)
+        self.game_object.transform.position = self.level_manager.levels[self.level_manager.current_level]["player_position"]

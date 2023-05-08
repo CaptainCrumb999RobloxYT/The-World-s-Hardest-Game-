@@ -43,7 +43,7 @@ level_manager = LevelManager(ui, (WIDTH, HEIGHT))
 
 
 # # Gameobjects
-# #region Player
+# #region Playerdd
 # player_go = GameObject("player")
 # player_go.transform.scale = Vector2(25, 25)
 # player_go.transform.position = Vector2(WIDTH / 2, HEIGHT / 2)

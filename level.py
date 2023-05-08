@@ -5,10 +5,14 @@ from game_object import GameObject
 from collider import Collider
 from endzone import EndZone
 from enemy_movement import EnemyMovement
+from loadxml import parse_xml
 import random
 
 HEIGHT = 480
 levels = [
+
+    parse_xml("test.xml"),
+
     {
     "player_position" : Vector2(30, HEIGHT / 2),
     # enemies patrolling the vertical span of the screen x seperated by 50 pixels
@@ -130,7 +134,7 @@ class LevelManager:
         player_go.add_component(SpriteRenderer(player_go, "doesnt matter", (255, 0, 0), 1))
         player_go.add_component(PlayerMovement(player_go, 3))
         player_go.add_component(Collider(player_go))
-        player_go.add_component(PlayerRespawn(player_go, level["player_position"], self.ui.fail_counter, self.ui.coin_counter))
+        player_go.add_component(PlayerRespawn(player_go, level["player_position"], self.ui.fail_counter, self.ui.coin_counter, self))
 
         '''
         {
