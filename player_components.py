@@ -38,8 +38,7 @@ class PlayerRespawn(Component):
             return
         self.respawn()
         self.fail_counter_text.increment()
-
         
 
     def respawn(self):
-        self.game_object.transform.position = self.level_manager.levels[self.level_manager.current_level]["player_position"]
+        self.game_object.transform.position = self.respawn_point.copy()

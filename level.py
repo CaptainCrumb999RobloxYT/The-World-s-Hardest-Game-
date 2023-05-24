@@ -117,7 +117,7 @@ levels = [
 class LevelManager:
 
     def __init__(self, ui, screen) -> None:
-        self.levels = []
+        self.levels = levels
         self.ui = ui
         self.screenWidth = screen[0]
         self.screenHeight = screen[1]
@@ -129,12 +129,12 @@ class LevelManager:
         # Loading in the player
         player_go = GameObject("player")
         player_go.transform.scale = Vector2(25, 25)
-        player_go.transform.position = level["player_position"]
+        player_go.transform.position = level["player_position"].copy()
 
         player_go.add_component(SpriteRenderer(player_go, "doesnt matter", (255, 0, 0), 1))
         player_go.add_component(PlayerMovement(player_go, 3))
         player_go.add_component(Collider(player_go))
-        player_go.add_component(PlayerRespawn(player_go, level["player_position"], self.ui.fail_counter, self.ui.coin_counter, self))
+        player_go.add_component(PlayerRespawn(player_go, level["player_position"].copy(), self.ui.fail_counter, self.ui.coin_counter, self))
 
         '''
         {
