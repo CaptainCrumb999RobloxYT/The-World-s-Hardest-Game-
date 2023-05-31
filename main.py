@@ -18,12 +18,7 @@ HEIGHT = 500
 FPS = 60
 
 # Define Colors 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
+from color import *
 
 ## initialize pygame and create window
 pygame.init()
@@ -32,6 +27,9 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 SpriteRenderer.screen = screen
 pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
+
+background = pygame.image.load("gradient.png")
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 # Game Variables
 # Other helper objects
@@ -82,7 +80,7 @@ while running:
     input.keys = pygame.key.get_pressed()
     
     # Draw/render
-    screen.fill(BLACK)
+    screen.blit(background, (0,0))
     GameObject.update_all_game_objects()
 
     SpriteRenderer.render_all()

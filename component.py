@@ -39,17 +39,27 @@ class SpriteRenderer(Component):
     ]
     '''
     
-    def __init__(self, game_object, sprite, color, layer) -> None:
+    def __init__(self, game_object, sprite, color, layer, draw_as_circle = False, dark_color = None) -> None:
         super().__init__(game_object)
         self.sprite = sprite
         self.color = color
         SpriteRenderer.render_layers[layer].append(self)
         self.show = True
+        self.draw_circle = draw_as_circle
+        self.dark_color = dark_color
 
     def render(self):
         if not self.show:
             return
-        pygame.draw.rect(SpriteRenderer.screen,self.color, self.game_object.transform.get_rect())
+        rect = self.game_object.transform.get_rect()
+        if self.draw_circle:  
+            pygame.draw.circle(SpriteRenderer.screen,self.color, rect.center, rect.width / 2)
+            if self.dark_color:
+                pygame.draw.circle(SpriteRenderer.screen,self.dark_color, rect.center, rect.width / 2, 3)
+        else:
+            pygame.draw.rect(SpriteRenderer.screen,self.color, rect)
+            if self.dark_color:
+                pygame.draw.rect(SpriteRenderer.screen,self.dark_color, rect, 3)
 
 
     def render_all():

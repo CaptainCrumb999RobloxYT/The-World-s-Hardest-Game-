@@ -8,6 +8,9 @@ from enemy_movement import EnemyMovement
 from loadxml import parse_xml
 import random
 
+# Define Colors 
+from color import *
+
 HEIGHT = 480
 levels = [
 
@@ -131,7 +134,7 @@ class LevelManager:
         player_go.transform.scale = Vector2(25, 25)
         player_go.transform.position = level["player_position"].copy()
 
-        player_go.add_component(SpriteRenderer(player_go, "doesnt matter", (255, 0, 0), 1))
+        player_go.add_component(SpriteRenderer(player_go, "doesnt matter", RED, 1, dark_color = DARK_RED))
         player_go.add_component(PlayerMovement(player_go, 3))
         player_go.add_component(Collider(player_go))
         player_go.add_component(PlayerRespawn(player_go, level["player_position"].copy(), self.ui.fail_counter, self.ui.coin_counter, self))
@@ -151,7 +154,7 @@ class LevelManager:
             enemy_go.transform.scale = Vector2(25, 25)
             enemy_go.transform.position = enemy["patrolPoints"][0].copy()
 
-            enemy_go.add_component(SpriteRenderer(enemy_go, "dosent matter", (0, 0, 255), 1))
+            enemy_go.add_component(SpriteRenderer(enemy_go, "dosent matter", BLUE, 1, True, DARK_BLUE))
             points = enemy["patrolPoints"]
             enemy_go.add_component(EnemyMovement(enemy_go, enemy["speed"], points))
             enemy_go.add_component(Collider(enemy_go))
@@ -165,18 +168,18 @@ class LevelManager:
             coin_go.transform.scale = Vector2(25, 25)
             coin_go.transform.position = coin["patrolPoints"][0].copy()
 
-            coin_go.add_component(SpriteRenderer(coin_go, "dosent matter", (255, 255, 0), 1))
+            coin_go.add_component(SpriteRenderer(coin_go, "dosent matter", YELLOW, 1, True, DARK_YELLOW))
             points = coin["patrolPoints"]
             coin_go.add_component(Collider(coin_go))
 
         # Create the endzones
         start_zone = GameObject("start zone")
-        start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", (0, 255, 0), 0))
+        start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", GREEN, 0))
         start_zone.transform.position = Vector2(25, self.screenHeight / 2)
         start_zone.transform.scale = Vector2(50, self.screenHeight)
 
         end_zone = GameObject("end zone")
-        end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", (0, 255, 0), 0))
+        end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", GREEN, 0))
         end_zone.transform.position = Vector2(self.screenWidth - 25, self.screenHeight / 2)
         end_zone.transform.scale = Vector2(50, self.screenHeight)
         end_zone.add_component(EndZone(end_zone, self.ui, player_go, self))
