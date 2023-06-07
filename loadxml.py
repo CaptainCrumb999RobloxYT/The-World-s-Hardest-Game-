@@ -32,7 +32,15 @@ def parse_xml(name):
         coins.append({
             "patrolPoints":coin_patrol_points
         })
+    wall_nodes = root.getElementsByTagName("wall")
+    walls = []
+    for wall in wall_nodes:
+        wall_patrol_points = [extract_pos(wall)]
+        walls.append({
+            "patrolPoints":wall_patrol_points
+        })
     level["player_position"] = player_pos
     level["enemies"] = enemies
     level["coins"] = coins
+    level["walls"] = walls
     return level

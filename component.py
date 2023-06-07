@@ -19,7 +19,7 @@ class Transform(Component):
         self.scale = scale
     
     def get_rect(self):
-        return pygame.Rect(self.position.x - self.scale.x / 2, self.position.y - self.scale.y / 2, self.scale.x, self.scale.y)
+        return pygame.Rect(self.position.x, self.position.y, self.scale.x, self.scale.y)
 
 class SpriteRenderer(Component):
     screen = None

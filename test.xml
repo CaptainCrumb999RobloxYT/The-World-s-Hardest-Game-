@@ -8,6 +8,10 @@
       <enemy>
         <patrol_points>
           <patrol_point>
+            <x type="abs">450.0</x>
+            <y type="abs">175.0</y>
+          </patrol_point>
+          <patrol_point>
             <x type="abs">350.0</x>
             <y type="abs">175.0</y>
           </patrol_point>
@@ -19,17 +23,287 @@
             <x type="abs">450.0</x>
             <y type="abs">275.0</y>
           </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
           <patrol_point>
-            <x type="abs">450.0</x>
-            <y type="abs">175.0</y>
+            <x type="abs">700.0</x>
+            <y type="abs">125.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">700.0</x>
+            <y type="abs">325.0</y>
           </patrol_point>
         </patrol_points>
       </enemy>
     </enemies>
     <coins>
       <coin>
-        <x type="abs">700.0</x>
+        <x type="abs">725.0</x>
+        <y type="abs">200.0</y>
+      </coin>
+      <coin>
+        <x type="abs">725.0</x>
         <y type="abs">225.0</y>
       </coin>
+      <coin>
+        <x type="abs">725.0</x>
+        <y type="abs">250.0</y>
+      </coin>
+      <coin>
+        <x type="abs">750.0</x>
+        <y type="abs">200.0</y>
+      </coin>
+      <coin>
+        <x type="abs">750.0</x>
+        <y type="abs">225.0</y>
+      </coin>
+      <coin>
+        <x type="abs">750.0</x>
+        <y type="abs">250.0</y>
+      </coin>
     </coins>
+    <walls>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">150.0</y>
+      </wall>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">300.0</y>
+      </wall>
+      <wall>
+        <x type="abs">500.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">525.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">525.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">525.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">525.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">550.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">550.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">550.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">550.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">575.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">575.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">575.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">575.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">0.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">25.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">50.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">75.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">100.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">350.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">375.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">400.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">425.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">450.0</y>
+      </wall>
+      <wall>
+        <x type="abs">600.0</x>
+        <y type="abs">475.0</y>
+      </wall>
+      <wall>
+        <x type="abs">625.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">625.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">0.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">25.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">50.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">75.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">100.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">125.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">150.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">300.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">325.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">350.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">375.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">400.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">425.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">450.0</y>
+      </wall>
+      <wall>
+        <x type="abs">650.0</x>
+        <y type="abs">475.0</y>
+      </wall>
+      <wall>
+        <x type="abs">700.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">700.0</x>
+        <y type="abs">200.0</y>
+      </wall>
+      <wall>
+        <x type="abs">700.0</x>
+        <y type="abs">225.0</y>
+      </wall>
+      <wall>
+        <x type="abs">700.0</x>
+        <y type="abs">250.0</y>
+      </wall>
+      <wall>
+        <x type="abs">700.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+      <wall>
+        <x type="abs">725.0</x>
+        <y type="abs">175.0</y>
+      </wall>
+      <wall>
+        <x type="abs">725.0</x>
+        <y type="abs">275.0</y>
+      </wall>
+    </walls>
   </level>

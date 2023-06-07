@@ -36,6 +36,9 @@ class PlayerRespawn(Component):
             game_object.get_component(SpriteRenderer).show = False
             game_object.get_component(Collider).enabled = False
             return
+        if game_object.name == "wall":
+            delta_x = self.game_object.transform.position.x - game_object.transform.position.x
+            delta_y = self.game_object.transform.position.y - game_object.transform.position.y
         self.respawn()
         self.fail_counter_text.increment()
         

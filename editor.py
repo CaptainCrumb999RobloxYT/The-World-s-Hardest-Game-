@@ -156,10 +156,12 @@ while running:
         for column in tiles:
             for tile in column:
                 if not isinstance(tile, Tile): continue
-                if tile.type == "enemy": export_enemies.append(tile)
+                if tile.type == "enemy":
+                    tile.patrolpoints.insert(0, tile.pos)
+                    export_enemies.append(tile)
                 elif tile.type == "coin": export_coins.append(tile)
                 elif tile.type == "wall": export_walls.append(tile)
-        build_level(player_pos, export_enemies, export_coins, "test.xml")
+        build_level(player_pos, export_enemies, export_coins, export_walls, "test.xml")
 
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)

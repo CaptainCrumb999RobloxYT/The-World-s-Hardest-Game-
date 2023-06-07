@@ -26,6 +26,9 @@ levels = [
         {
             "patrolPoints":[Vector2(430, HEIGHT / 2) , Vector2(430, HEIGHT / 2)],
         },
+    ],
+    "walls" : [
+
     ]
 },
 
@@ -68,6 +71,9 @@ levels = [
         {
             "patrolPoints":[Vector2(600, HEIGHT / 2) , Vector2(600, HEIGHT / 2)],
         },
+    ],
+    "walls" : [
+
     ]
 },
 
@@ -113,6 +119,9 @@ levels = [
         {
             "patrolPoints":[Vector2(750, HEIGHT / 2) , Vector2(750, HEIGHT / 2)],
         },
+    ],
+    "walls" : [
+
     ]
 },
 ]
@@ -172,15 +181,28 @@ class LevelManager:
             points = coin["patrolPoints"]
             coin_go.add_component(Collider(coin_go))
 
+        # Load in all walls
+        walls = level["walls"]
+        # Loop through the list of wallsWIDTH
+        for wall in walls:
+            # create an wall based on the wall key values
+            wall_go = GameObject("wall")
+            wall_go.transform.scale = Vector2(25, 25)
+            wall_go.transform.position = wall["patrolPoints"][0].copy()
+
+            wall_go.add_component(SpriteRenderer(wall_go, "dosent matter", GRAY, 1))
+            points = wall["patrolPoints"]
+            wall_go.add_component(Collider(wall_go))
+
         # Create the endzones
         start_zone = GameObject("start zone")
         start_zone.add_component(SpriteRenderer(start_zone, "dosent matter", GREEN, 0))
-        start_zone.transform.position = Vector2(25, self.screenHeight / 2)
+        start_zone.transform.position = Vector2(0, 0)
         start_zone.transform.scale = Vector2(50, self.screenHeight)
 
         end_zone = GameObject("end zone")
         end_zone.add_component(SpriteRenderer(end_zone, "dosent matter", GREEN, 0))
-        end_zone.transform.position = Vector2(self.screenWidth - 25, self.screenHeight / 2)
+        end_zone.transform.position = Vector2(self.screenWidth - 50, 0)
         end_zone.transform.scale = Vector2(50, self.screenHeight)
         end_zone.add_component(EndZone(end_zone, self.ui, player_go, self))
         end_zone.add_component(Collider(end_zone))
