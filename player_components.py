@@ -1,6 +1,7 @@
 from component import Component, SpriteRenderer
 import pygame
 import input
+import math
 from collider import Collider
 from ui import TextUI
 
@@ -8,6 +9,7 @@ class PlayerMovement(Component):
     def __init__(self, game_object, speed) -> None:
         super().__init__(game_object)
         self.speed = speed
+        self.last_movement = pygame.Vector2()
 
     def update(self):
         # gathering the input in a vector2
@@ -17,6 +19,7 @@ class PlayerMovement(Component):
             pygame.math.Vector2.normalize_ip(inputs)
         # scale vector by movemement speed
         movement = inputs * self.speed
+        self.last_movement = movement
         self.game_object.transform.position.y += movement.y
         self.game_object.transform.position.x += movement.x
 
@@ -37,8 +40,20 @@ class PlayerRespawn(Component):
             game_object.get_component(Collider).enabled = False
             return
         if game_object.name == "wall":
+            last_movement = self.game_object.get_component(PlayerMovement).last_movement
             delta_x = self.game_object.transform.position.x - game_object.transform.position.x
+            if delta_x >= 25: return
             delta_y = self.game_object.transform.position.y - game_object.transform.position.y
+            if delta_y >= 25: return
+            x_movement = math.copysign(25, delta_x) - delta_x
+            y_movement = math.copysign(25, delta_y) - delta_y
+            if last_movement.x != 0:
+                self.game_object.transform.position.x += x_movement
+                print(x_movement)
+            if last_movement.y != 0:
+                self.game_object.transform.position.y += y_movement
+            return
+
         self.respawn()
         self.fail_counter_text.increment()
         
