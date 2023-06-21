@@ -42,9 +42,13 @@ class PlayerRespawn(Component):
         if game_object.name == "wall":
             last_movement = self.game_object.get_component(PlayerMovement).last_movement
             delta_x = self.game_object.transform.position.x - game_object.transform.position.x
-            if delta_x >= 25: return
+            if abs(delta_x) >= 25: return
+            last_delta_x = (self.game_object.transform.position.x - last_movement.x) - game_object.transform.position.x
+            if abs(last_delta_x) < 25: last_movement.x = 0
             delta_y = self.game_object.transform.position.y - game_object.transform.position.y
-            if delta_y >= 25: return
+            if abs(delta_y) >= 25: return
+            last_delta_y = (self.game_object.transform.position.y - last_movement.y) - game_object.transform.position.y
+            if abs(last_delta_y) < 25: last_movement.y = 0
             x_movement = math.copysign(25, delta_x) - delta_x
             y_movement = math.copysign(25, delta_y) - delta_y
             if last_movement.x != 0:

@@ -26,7 +26,7 @@ YELLOW = (255, 255, 0)
 GRAY = (100, 100, 100)
 LIGHT_GRAY = (150, 150, 150)
 
-modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "player":RED, "eraser":WHITE}
+modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "player":RED, "eraser":WHITE, "save":PURPLE}
 mode = "select"
 selected = None
 patrolpoint_mode = 0
@@ -119,7 +119,7 @@ while running:
 
     gridpos = get_nearest_grid_square(mouse_vector - pygame.Vector2(TILE_SIZE // 2))
     if not (sidebar_left.collidepoint(mouse_pos) or sidebar_right.collidepoint(mouse_pos) or toolbar_visible):
-        if mode != "select":
+        if mode != "select" or mode != "save":
             pygame.draw.rect(screen,modes[mode],(gridpos.x,gridpos.y,TILE_SIZE,TILE_SIZE))
         if click:
             tile_x = int(gridpos.x / TILE_SIZE)
@@ -142,26 +142,29 @@ while running:
                         selected.remove_patrolpoint(gridpos)
                 else:
                     selected = tiles[tile_x][tile_y]
+            elif mode == "save":
+                pass
             elif not gridpos == player_pos:
                 tiles[tile_x][tile_y] = Tile(gridpos,mode)
 
     if player_pos:
         pygame.draw.rect(screen, modes["player"], (player_pos.x, player_pos.y, TILE_SIZE, TILE_SIZE))
-
-    pygame.draw.rect(screen, PURPLE, save_button)
-    if not toolbar_visible and save_button.collidepoint(mouse_pos) and click and player_pos:
-        export_enemies = []
-        export_coins = []
-        export_walls = []
-        for column in tiles:
-            for tile in column:
-                if not isinstance(tile, Tile): continue
-                if tile.type == "enemy":
-                    tile.patrolpoints.insert(0, tile.pos)
-                    export_enemies.append(tile)
-                elif tile.type == "coin": export_coins.append(tile)
-                elif tile.type == "wall": export_walls.append(tile)
-        build_level(player_pos, export_enemies, export_coins, export_walls, "test.xml")
+    
+    if mode == "save":
+        pygame.draw.rect(screen, PURPLE, save_button)
+        if not toolbar_visible and save_button.collidepoint(mouse_pos) and click and player_pos:
+            export_enemies = []
+            export_coins = []
+            export_walls = []
+            for column in tiles:
+                for tile in column:
+                    if not isinstance(tile, Tile): continue
+                    if tile.type == "enemy":
+                        tile.patrolpoints.insert(0, tile.pos)
+                        export_enemies.append(tile)
+                    elif tile.type == "coin": export_coins.append(tile)
+                    elif tile.type == "wall": export_walls.append(tile)
+            # build_level(player_pos, export_enemies, export_coins, export_walls, "test.xml")
 
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)
