@@ -31,6 +31,8 @@ mode = "select"
 selected = None
 patrolpoint_mode = 0
 player_pos = None
+level_name = ""
+font = pygame.font.Font(None, 60) 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The World's Hardest Game")
@@ -88,6 +90,15 @@ while running:
     click = False
     for event in pygame.event.get():        # gets all the events which have occured till now and keeps tab of them.
         ## listening for the the X button at the top
+        if event.type == pygame.KEYDOWN and mode == "save":
+            key = event.unicode
+            if key.isalpha() or key == " ":
+                level_name += key
+            elif key == "\b":
+                level_name = level_name[:-1]
+            if len(level_name) > 20:
+                print(level_name)
+                # level_name = level_name[:20]
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -119,7 +130,7 @@ while running:
 
     gridpos = get_nearest_grid_square(mouse_vector - pygame.Vector2(TILE_SIZE // 2))
     if not (sidebar_left.collidepoint(mouse_pos) or sidebar_right.collidepoint(mouse_pos) or toolbar_visible):
-        if mode != "select" or mode != "save":
+        if mode != "select" and mode != "save":
             pygame.draw.rect(screen,modes[mode],(gridpos.x,gridpos.y,TILE_SIZE,TILE_SIZE))
         if click:
             tile_x = int(gridpos.x / TILE_SIZE)
@@ -152,6 +163,8 @@ while running:
     
     if mode == "save":
         pygame.draw.rect(screen, PURPLE, save_button)
+        level_name_image = font.render(level_name + "|", True, WHITE, GRAY)
+        screen.blit(level_name_image, (100, 100))
         if not toolbar_visible and save_button.collidepoint(mouse_pos) and click and player_pos:
             export_enemies = []
             export_coins = []
