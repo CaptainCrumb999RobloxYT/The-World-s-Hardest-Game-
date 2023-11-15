@@ -1,3 +1,5 @@
+import tkinter
+import tkinter.filedialog
 import pygame
 from buildxml import build_level
 
@@ -10,6 +12,14 @@ TILE_SIZE_HALF = TILE_SIZE / 2
 TILE_COUNT_X = WIDTH // TILE_SIZE
 TILE_COUNT_Y = HEIGHT // TILE_SIZE
 FPS = 60
+
+def prompt_file():
+    """Create a Tk file dialog and cleanup when finished"""
+    top = tkinter.Tk()
+    top.withdraw()  # hide window
+    file_name = tkinter.filedialog.askopenfilename(parent=top)
+    top.destroy()
+    return file_name
 
 # Define Colors 
 WHITE = (255, 255, 255)
@@ -54,6 +64,7 @@ sidebar_right = pygame.Rect(WIDTH - 50,0,50,HEIGHT)
 add_patrolpoint_button = pygame.Rect(0,HEIGHT - 100,50,50)
 remove_patrolpoint_button = pygame.Rect(0,HEIGHT - 50,50,50)
 save_button = pygame.Rect(WIDTH - 50,50,50,50)
+file_button = pygame.Rect(WIDTH - 50,HEIGHT - 50,50,50)
 
 class Tile:
     def __init__(self, position, type):
@@ -178,7 +189,7 @@ while running:
                     elif tile.type == "coin": export_coins.append(tile)
                     elif tile.type == "wall": export_walls.append(tile)
             # build_level(player_pos, export_enemies, export_coins, export_walls, "test.xml")
-
+    pygame.draw.rect(screen,PURPLE,file_button)
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_background)

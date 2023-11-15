@@ -23,6 +23,9 @@ from color import *
 ## initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  ## For sound
+pygame.mixer.music.load("carefree.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(.5)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 SpriteRenderer.screen = screen
 pygame.display.set_caption("The World's Hardest Game")

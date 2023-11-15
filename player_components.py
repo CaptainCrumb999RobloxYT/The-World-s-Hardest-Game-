@@ -30,6 +30,8 @@ class PlayerRespawn(Component):
         self.fail_counter_text = fail_counter_text
         self.coin_counter_text = coin_counter_text
         self.level_manager = level_manager
+        self.sound = pygame.mixer.Sound("mixkit.wav")
+        self.sound.set_volume(.5)
         
     def on_collision(self, game_object):
         if game_object.name == "end zone":
@@ -53,12 +55,14 @@ class PlayerRespawn(Component):
             y_movement = math.copysign(25, delta_y) - delta_y
             if last_movement.x != 0:
                 self.game_object.transform.position.x += x_movement
-                print(x_movement)
+                print("x ",x_movement)
             if last_movement.y != 0:
                 self.game_object.transform.position.y += y_movement
+                print("y ",y_movement)
             return
 
-        self.respawn()
+        self.respawn()        
+        pygame.mixer.Sound.play(self.sound)
         self.fail_counter_text.increment()
         
 
