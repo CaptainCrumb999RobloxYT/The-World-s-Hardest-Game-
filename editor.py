@@ -4,7 +4,7 @@ import pygame
 from buildxml import build_level
 
 pygame.init()
-
+        # level_name_image = font.render(level_name + "|", True, WHITE, GRAY)
 WIDTH = 850
 HEIGHT = 500
 TILE_SIZE = 25
@@ -44,6 +44,8 @@ player_pos = None
 level_name = ""
 font = pygame.font.Font(None, 60) 
 
+options = {"new":WHITE, "open":YELLOW, "save":BLUE}
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
@@ -64,7 +66,10 @@ sidebar_right = pygame.Rect(WIDTH - 50,0,50,HEIGHT)
 add_patrolpoint_button = pygame.Rect(0,HEIGHT - 100,50,50)
 remove_patrolpoint_button = pygame.Rect(0,HEIGHT - 50,50,50)
 save_button = pygame.Rect(WIDTH - 50,50,50,50)
-file_button = pygame.Rect(WIDTH - 50,HEIGHT - 50,50,50)
+options_editor = False
+
+options_button = pygame.Rect(WIDTH - 50,HEIGHT - 50,50,50)
+options_background = pygame.Rect(0,HEIGHT-50,WIDTH,100)
 
 class Tile:
     def __init__(self, position, type):
@@ -189,7 +194,6 @@ while running:
                     elif tile.type == "coin": export_coins.append(tile)
                     elif tile.type == "wall": export_walls.append(tile)
             # build_level(player_pos, export_enemies, export_coins, export_walls, "test.xml")
-    pygame.draw.rect(screen,PURPLE,file_button)
     if toolbar_visible:
         toolbar_visible = toolbar_background.collidepoint(mouse_pos)
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_background)
@@ -209,6 +213,29 @@ while running:
         toolbar_visible = toolbar_button.collidepoint(mouse_pos)
         pygame.draw.rect(screen,LIGHT_GRAY,toolbar_button)
 
+    if options_editor:
+        options_editor = options_background.collidepoint(mouse_pos)
+        pygame.draw.rect(screen,LIGHT_GRAY,options_background)
+        screen_fraction = WIDTH / len(options)
+        i = 0
+        for m in options:
+            i += 1
+            x_pos = screen_fraction * i - screen_fraction / 2
+            text_image = font.render(m, True, WHITE, GRAY)
+            options_rect = text_image.get_rect()
+            options_rect.center = (x_pos,HEIGHT-25)
+            if options_rect.collidepoint(mouse_pos):
+                pygame.draw.rect(screen,BLACK,(options_rect.x - 5,options_rect.y - 5,options_rect.width + 10,options_rect.height + 10))
+            # pygame.draw.rect(screen,options[m],mode_rect)
+            
+            # text_image.get_rect = font.render(m, True, WHITE, GRAY)
+            screen.blit(text_image, options_rect)
+            if options_rect.collidepoint(mouse_pos) and click:
+                mode = m
+
+    else:
+        options_editor = options_button.collidepoint(mouse_pos)
+        pygame.draw.rect(screen,LIGHT_GRAY,options_button)
     
 
     if isinstance(selected, Enemy):
