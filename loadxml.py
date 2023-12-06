@@ -44,3 +44,15 @@ def parse_xml(name):
     level["coins"] = coins
     level["walls"] = walls
     return level
+
+def parse_xml_editor(name):
+    document=md.parse(name)
+    level = {}
+    root = document.documentElement
+    player_pos = root.getElementsByTagName("player_position")[0]
+    player_pos = extract_pos(player_pos)
+    level["player_position"] = player_pos
+    # level["enemies"] = enemies
+    # level["coins"] = coins
+    # level["walls"] = walls
+    return level

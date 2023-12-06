@@ -2,7 +2,7 @@ import tkinter
 import tkinter.filedialog
 import pygame
 from buildxml import build_level
-
+from loadxml import parse_xml
 pygame.init()
         # level_name_image = font.render(level_name + "|", True, WHITE, GRAY)
 WIDTH = 850
@@ -18,6 +18,15 @@ def prompt_file():
     top = tkinter.Tk()
     top.withdraw()  # hide window
     file_name = tkinter.filedialog.askopenfilename(parent=top)
+    top.destroy()
+    return file_name
+
+def prompt_save():
+    """Create a Tk file dialog and cleanup when finished"""
+    top = tkinter.Tk()
+    top.withdraw()  # hide window
+    files = [("xml","*.xml")]
+    file_name = tkinter.filedialog.asksaveasfile(parent=top,filetypes=files,defaultextension=files)
     top.destroy()
     return file_name
 
@@ -44,7 +53,32 @@ player_pos = None
 level_name = ""
 font = pygame.font.Font(None, 60) 
 
-options = {"new":WHITE, "open":YELLOW, "save":BLUE}
+def new():
+    global tiles
+    tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
+def openf():
+    file = prompt_file()
+    print(file)
+def save():
+    if player_pos is None:
+        tkinter.messagebox.showwarning('Failed to Save', 'Please put in a Player Block (Red Block)')
+        return
+    file = prompt_save()
+    export_enemies = []
+    export_coins = []
+    export_walls = []
+    for column in tiles:
+        for tile in column:
+            if not isinstance(tile, Tile): continue
+            if tile.type == "enemy":
+                tile.patrolpoints.insert(0, tile.pos)
+                export_enemies.append(tile)
+            elif tile.type == "coin": export_coins.append(tile)
+            elif tile.type == "wall": export_walls.append(tile)
+    build_level(player_pos,export_enemies,export_coins,export_walls,file)
+    print(file)
+
+options = {"new":new, "open":openf, "save":save}
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The World's Hardest Game")
@@ -231,7 +265,7 @@ while running:
             # text_image.get_rect = font.render(m, True, WHITE, GRAY)
             screen.blit(text_image, options_rect)
             if options_rect.collidepoint(mouse_pos) and click:
-                mode = m
+                options[m]()
 
     else:
         options_editor = options_button.collidepoint(mouse_pos)
