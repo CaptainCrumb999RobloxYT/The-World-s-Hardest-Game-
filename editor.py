@@ -57,7 +57,25 @@ def new():
     global tiles
     tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
 def openf():
+    global player_pos
+    global tiles
+    tkinter.messagebox.showwarning('Warning', 'This will Overwrite the Save Data.')
+    tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
     file = prompt_file()
+    level = parse_xml(file)
+    player_pos = level["player_position"]
+    enemies = level["enemies"]
+    for enemy in enemies:
+        patrol_point = enemy["patrolPoints"][0]
+        tiles[int(patrol_point.x) // TILE_SIZE][int(patrol_point.y) // TILE_SIZE] = Enemy(patrol_point)
+    walls = level["walls"]
+    for wall in walls:
+        patrol_point = wall["patrolPoints"][0]
+        tiles[int(patrol_point.x) // TILE_SIZE][int(patrol_point.y) // TILE_SIZE] = Tile(patrol_point,"wall")
+    coins = level["coins"]
+    for coin in coins:
+        patrol_point = coin["patrolPoints"][0]
+        tiles[int(patrol_point.x) // TILE_SIZE][int(patrol_point.y) // TILE_SIZE] = Tile(patrol_point,"coin")
     print(file)
 def save():
     if player_pos is None:

@@ -52,7 +52,7 @@ def parse_xml_editor(name):
     player_pos = root.getElementsByTagName("player_position")[0]
     player_pos = extract_pos(player_pos)
     level["player_position"] = player_pos
-    # level["enemies"] = enemies
-    # level["coins"] = coins
-    # level["walls"] = walls
+    level["enemies"] = enemies
+    level["coins"] = coins
+    level["walls"] = walls
     return level

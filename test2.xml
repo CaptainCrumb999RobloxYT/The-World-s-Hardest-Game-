@@ -45,8 +45,68 @@
           </patrol_point>
         </patrol_points>
       </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">150.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">175.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">200.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">225.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">250.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">275.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
+      <enemy>
+        <patrol_points>
+          <patrol_point>
+            <x type="abs">600.0</x>
+            <y type="abs">300.0</y>
+          </patrol_point>
+        </patrol_points>
+      </enemy>
     </enemies>
     <coins>
+      <coin>
+        <x type="abs">100.0</x>
+        <y type="abs">150.0</y>
+      </coin>
       <coin>
         <x type="abs">175.0</x>
         <y type="abs">200.0</y>
@@ -54,6 +114,10 @@
       <coin>
         <x type="abs">175.0</x>
         <y type="abs">275.0</y>
+      </coin>
+      <coin>
+        <x type="abs">200.0</x>
+        <y type="abs">125.0</y>
       </coin>
       <coin>
         <x type="abs">200.0</x>
@@ -80,12 +144,52 @@
         <y type="abs">400.0</y>
       </coin>
       <coin>
+        <x type="abs">300.0</x>
+        <y type="abs">200.0</y>
+      </coin>
+      <coin>
+        <x type="abs">300.0</x>
+        <y type="abs">325.0</y>
+      </coin>
+      <coin>
+        <x type="abs">325.0</x>
+        <y type="abs">50.0</y>
+      </coin>
+      <coin>
+        <x type="abs">325.0</x>
+        <y type="abs">75.0</y>
+      </coin>
+      <coin>
+        <x type="abs">325.0</x>
+        <y type="abs">125.0</y>
+      </coin>
+      <coin>
+        <x type="abs">325.0</x>
+        <y type="abs">350.0</y>
+      </coin>
+      <coin>
+        <x type="abs">325.0</x>
+        <y type="abs">375.0</y>
+      </coin>
+      <coin>
+        <x type="abs">350.0</x>
+        <y type="abs">400.0</y>
+      </coin>
+      <coin>
         <x type="abs">400.0</x>
         <y type="abs">300.0</y>
       </coin>
       <coin>
+        <x type="abs">450.0</x>
+        <y type="abs">50.0</y>
+      </coin>
+      <coin>
         <x type="abs">475.0</x>
         <y type="abs">400.0</y>
+      </coin>
+      <coin>
+        <x type="abs">525.0</x>
+        <y type="abs">50.0</y>
       </coin>
       <coin>
         <x type="abs">525.0</x>
@@ -96,12 +200,40 @@
         <y type="abs">325.0</y>
       </coin>
       <coin>
+        <x type="abs">550.0</x>
+        <y type="abs">50.0</y>
+      </coin>
+      <coin>
         <x type="abs">600.0</x>
         <y type="abs">350.0</y>
       </coin>
       <coin>
+        <x type="abs">625.0</x>
+        <y type="abs">100.0</y>
+      </coin>
+      <coin>
+        <x type="abs">650.0</x>
+        <y type="abs">75.0</y>
+      </coin>
+      <coin>
+        <x type="abs">675.0</x>
+        <y type="abs">100.0</y>
+      </coin>
+      <coin>
         <x type="abs">675.0</x>
         <y type="abs">225.0</y>
+      </coin>
+      <coin>
+        <x type="abs">700.0</x>
+        <y type="abs">150.0</y>
+      </coin>
+      <coin>
+        <x type="abs">700.0</x>
+        <y type="abs">450.0</y>
+      </coin>
+      <coin>
+        <x type="abs">725.0</x>
+        <y type="abs">150.0</y>
       </coin>
       <coin>
         <x type="abs">725.0</x>
