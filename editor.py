@@ -62,6 +62,8 @@ def openf():
     tkinter.messagebox.showwarning('Warning', 'This will Overwrite the Save Data.')
     tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
     file = prompt_file()
+    if file == '':
+        return
     level = parse_xml(file)
     player_pos = level["player_position"]
     enemies = level["enemies"]

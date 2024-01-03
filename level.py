@@ -189,8 +189,9 @@ class LevelManager:
             wall_go = GameObject("wall")
             wall_go.transform.scale = Vector2(25, 25)
             wall_go.transform.position = wall["patrolPoints"][0].copy()
+            rgb = (168, 164, 248)
 
-            wall_go.add_component(SpriteRenderer(wall_go, "dosent matter", GRAY, 1))
+            wall_go.add_component(SpriteRenderer(wall_go, "dosent matter", rgb, 1))
             points = wall["patrolPoints"]
             wall_go.add_component(Collider(wall_go))
 
