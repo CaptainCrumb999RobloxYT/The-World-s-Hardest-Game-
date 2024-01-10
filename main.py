@@ -31,7 +31,7 @@ SpriteRenderer.screen = screen
 pygame.display.set_caption("The World's Hardest Game")
 clock = pygame.time.Clock()     ## For syncing the FPS
 
-background = pygame.image.load("gradient.png")
+background = pygame.image.load("bg.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 # Game Variables
@@ -77,13 +77,16 @@ while running:
         ## listening for the the X button at the top
         if event.type == pygame.QUIT:
             running = False
-    
+    # print(1 / delta_time)
 
     # Game Logic
     input.keys = pygame.key.get_pressed()
     
     # Draw/render
     screen.blit(background, (0,0))
+    # for j in range(0,HEIGHT,50):
+    #     for i in range(0,WIDTH,50):
+    #         screen.blit(background, (i,j))
     GameObject.update_all_game_objects()
 
     SpriteRenderer.render_all()

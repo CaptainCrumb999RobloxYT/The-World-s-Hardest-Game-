@@ -3,6 +3,7 @@ import tkinter.filedialog
 import pygame
 from buildxml import build_level
 from loadxml import parse_xml
+from tkinter.colorchooser import askcolor
 pygame.init()
         # level_name_image = font.render(level_name + "|", True, WHITE, GRAY)
 WIDTH = 850
@@ -126,9 +127,10 @@ options_button = pygame.Rect(WIDTH - 50,HEIGHT - 50,50,50)
 options_background = pygame.Rect(0,HEIGHT-50,WIDTH,100)
 
 class Tile:
-    def __init__(self, position, type):
+    def __init__(self, position, type,):
         self.pos = position
         self.type = type
+        # if self.type == "wall":
     def draw(self):
         pygame.draw.rect(screen, modes[self.type], (self.pos.x, self.pos.y, TILE_SIZE,TILE_SIZE))
 
@@ -158,6 +160,7 @@ while running:
     # Process input/events
     delta_time = clock.tick(FPS) / 1000    ## will make the loop run at the same speed all the time
     click = False
+    right_click = False
     for event in pygame.event.get():        # gets all the events which have occured till now and keeps tab of them.
         ## listening for the the X button at the top
         if event.type == pygame.KEYDOWN and mode == "save":
@@ -173,6 +176,8 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             click = event.button == 1
+            right_click = event.button == 3
+
     
 
     # Game Logic
@@ -262,6 +267,10 @@ while running:
             pygame.draw.rect(screen,modes[m],mode_rect)
             if mode_rect.collidepoint(mouse_pos) and click:
                 mode = m
+            if mode_rect.collidepoint(mouse_pos) and right_click:
+                if m == "wall":
+                    colors = askcolor(title="Color")
+                    print(colors[0])
 
     else:
         toolbar_visible = toolbar_button.collidepoint(mouse_pos)
