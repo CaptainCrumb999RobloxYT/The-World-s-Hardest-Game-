@@ -53,6 +53,7 @@ patrolpoint_mode = 0
 player_pos = None
 level_name = ""
 font = pygame.font.Font(None, 60) 
+wall_color = GRAY
 
 def new():
     global tiles
@@ -74,7 +75,7 @@ def openf():
     walls = level["walls"]
     for wall in walls:
         patrol_point = wall["patrolPoints"][0]
-        tiles[int(patrol_point.x) // TILE_SIZE][int(patrol_point.y) // TILE_SIZE] = Tile(patrol_point,"wall")
+        tiles[int(patrol_point.x) // TILE_SIZE][int(patrol_point.y) // TILE_SIZE] = Wall(patrol_point,wall["wallColor"])
     coins = level["coins"]
     for coin in coins:
         patrol_point = coin["patrolPoints"][0]
@@ -153,7 +154,12 @@ class Enemy(Tile):
             last_point = center
             pygame.draw.circle(screen, WHITE, center, TILE_SIZE_HALF)
         
-
+class Wall(Tile):
+    def __init__(self, position, color):
+        super().__init__(position, "wall")
+        self.color = color
+    def draw(self):
+        pygame.draw.rect(screen, self.color, (self.pos.x, self.pos.y, TILE_SIZE,TILE_SIZE))
 running = True
 while running:
 
@@ -228,6 +234,9 @@ while running:
                         selected.remove_patrolpoint(gridpos)
                 else:
                     selected = tiles[tile_x][tile_y]
+            elif mode == "wall":
+                if not gridpos == player_pos:
+                    tiles[tile_x][tile_y] = Wall(gridpos, wall_color)
             elif mode == "save":
                 pass
             elif not gridpos == player_pos:
@@ -271,6 +280,7 @@ while running:
                 if m == "wall":
                     colors = askcolor(title="Color")
                     print(colors[0])
+                    wall_color = colors[0]
 
     else:
         toolbar_visible = toolbar_button.collidepoint(mouse_pos)

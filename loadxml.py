@@ -8,6 +8,18 @@ def extract_pos(node):
     y = float(y)
     return pygame.Vector2(x, y)
 
+def extract_color(node):
+    try:
+        r = node.getElementsByTagName("r")[0].childNodes[0].data
+        r = float(r)
+        g = node.getElementsByTagName("g")[0].childNodes[0].data
+        g = float(g)
+        b = node.getElementsByTagName("b")[0].childNodes[0].data
+        b = float(b)
+        return (r, g, b)
+    except:
+        return (168, 164, 248)
+
 def parse_xml(name):
     document = md.parse(name)
     level = {}
@@ -36,8 +48,10 @@ def parse_xml(name):
     walls = []
     for wall in wall_nodes:
         wall_patrol_points = [extract_pos(wall)]
+        wall_color = extract_color(wall)
         walls.append({
-            "patrolPoints":wall_patrol_points
+            "patrolPoints":wall_patrol_points,
+            "wallColor":wall_color
         })
     level["player_position"] = player_pos
     level["enemies"] = enemies

@@ -12,6 +12,23 @@ def create_position(doc,node,x,y,x_type = "abs",y_type = "abs"):
     y_node.appendChild(y_text)
     node.appendChild(y_node)
 
+def create_wall_color(doc,node,r,g,b):
+    r_node = doc.createElement("r")
+    r_node.setAttribute("type", "abs")
+    r_text = doc.createTextNode(str(r))
+    r_node.appendChild(r_text)
+    node.appendChild(r_node)
+    g_node = doc.createElement("g")
+    g_node.setAttribute("type", "abs")
+    g_text = doc.createTextNode(str(g))
+    g_node.appendChild(g_text)
+    node.appendChild(g_node)
+    b_node = doc.createElement("b")
+    b_node.setAttribute("type", "abs")
+    b_text = doc.createTextNode(str(b))
+    b_node.appendChild(b_text)
+    node.appendChild(b_node)
+
 def create_patrol_point(doc, node, pos):
     patrol_point_element = doc.createElement("patrol_point")
     node.appendChild(patrol_point_element)
@@ -59,6 +76,7 @@ def build_level(player_pos, enemies, coins, walls, file):
         new_wall = document.createElement("wall")
         walls_element.appendChild(new_wall)
         create_position(document, new_wall, wall.pos.x, wall.pos.y)
+        create_wall_color(document, new_wall, wall.color[0], wall.color[1], wall.color[2])
 
     document.writexml(file,indent = "  ", addindent = "  ", newl = "\n")
     document.unlink()
