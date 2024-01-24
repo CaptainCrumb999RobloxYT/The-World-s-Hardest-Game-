@@ -26,6 +26,11 @@ def parse_xml(name):
     root = document.documentElement
     player_pos = root.getElementsByTagName("player_position")[0]
     player_pos = extract_pos(player_pos)
+    try:
+        end_pos = root.getElementsByTagName("end_position")[0]
+        end_pos = extract_pos(end_pos)
+    except:
+        pass
     enemy_nodes = root.getElementsByTagName("enemy")
     enemies = []
     for enemy in enemy_nodes:
@@ -54,6 +59,9 @@ def parse_xml(name):
             "wallColor":wall_color
         })
     level["player_position"] = player_pos
+    try:
+        level["end_position"] = end_pos
+    except: level["end_position"] = None
     level["enemies"] = enemies
     level["coins"] = coins
     level["walls"] = walls

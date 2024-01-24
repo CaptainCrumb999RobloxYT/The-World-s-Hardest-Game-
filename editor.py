@@ -46,11 +46,12 @@ YELLOW = (255, 255, 0)
 GRAY = (100, 100, 100)
 LIGHT_GRAY = (150, 150, 150)
 
-modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "player":RED, "eraser":WHITE, "save":PURPLE}
+modes = {"select":WHITE, "coin":YELLOW, "enemy":BLUE, "wall":GRAY, "player":RED, "eraser":WHITE, "end":GREEN}
 mode = "select"
 selected = None
 patrolpoint_mode = 0
 player_pos = None
+end_pos = None
 level_name = ""
 font = pygame.font.Font(None, 60) 
 wall_color = GRAY
@@ -60,6 +61,7 @@ def new():
     tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
 def openf():
     global player_pos
+    global end_pos
     global tiles
     tkinter.messagebox.showwarning('Warning', 'This will Overwrite the Save Data.')
     tiles = [[None] * TILE_COUNT_Y for _ in range(TILE_COUNT_X)]
@@ -68,6 +70,7 @@ def openf():
         return
     level = parse_xml(file)
     player_pos = level["player_position"]
+    end_pos = level["end_position"]
     enemies = level["enemies"]
     for enemy in enemies:
         patrol_point = enemy["patrolPoints"][0]
@@ -85,6 +88,9 @@ def save():
     if player_pos is None:
         tkinter.messagebox.showwarning('Failed to Save', 'Please put in a Player Block (Red Block)')
         return
+    if end_pos is None:
+        tkinter.messagebox.showwarning('Failed to Save', 'Please put in an End Block (Green Block)')
+        return
     file = prompt_save()
     export_enemies = []
     export_coins = []
@@ -97,7 +103,7 @@ def save():
                 export_enemies.append(tile)
             elif tile.type == "coin": export_coins.append(tile)
             elif tile.type == "wall": export_walls.append(tile)
-    build_level(player_pos,export_enemies,export_coins,export_walls,file)
+    build_level(player_pos,end_pos,export_enemies,export_coins,export_walls,file)
     print(file)
 
 options = {"new":new, "open":openf, "save":save}
@@ -239,12 +245,18 @@ while running:
                     tiles[tile_x][tile_y] = Wall(gridpos, wall_color)
             elif mode == "save":
                 pass
+            elif mode == "end":
+                if not tiles[tile_x][tile_y]:
+                    end_pos = gridpos
             elif not gridpos == player_pos:
                 tiles[tile_x][tile_y] = Tile(gridpos,mode)
 
     if player_pos:
         pygame.draw.rect(screen, modes["player"], (player_pos.x, player_pos.y, TILE_SIZE, TILE_SIZE))
     
+    if end_pos:
+        pygame.draw.rect(screen, modes["end"], (end_pos.x, end_pos.y, TILE_SIZE, TILE_SIZE))
+
     if mode == "save":
         pygame.draw.rect(screen, PURPLE, save_button)
         level_name_image = font.render(level_name + "|", True, WHITE, GRAY)

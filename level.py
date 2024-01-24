@@ -14,7 +14,7 @@ from color import *
 HEIGHT = 480
 levels = [
 
-    parse_xml("test.xml"),
+    parse_xml("test4.xml"),
 
     {
     "player_position" : Vector2(30, HEIGHT / 2),
@@ -147,6 +147,15 @@ class LevelManager:
         player_go.add_component(PlayerMovement(player_go, 3))
         player_go.add_component(Collider(player_go))
         player_go.add_component(PlayerRespawn(player_go, level["player_position"].copy(), self.ui.fail_counter, self.ui.coin_counter, self))
+
+        if "end_position" in level and level["end_position"] != None:
+            end_zone2 = GameObject("end zone")
+            end_zone2.add_component(SpriteRenderer(end_zone2, "dosent matter", GREEN, 0))
+            end_zone2.transform.position = level["end_position"].copy()
+            end_zone2.transform.scale = Vector2(25, 25)
+
+            end_zone2.add_component(EndZone(end_zone2, self.ui, player_go, self))
+            end_zone2.add_component(Collider(end_zone2))
 
         '''
         {

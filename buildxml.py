@@ -42,7 +42,7 @@ def create_enemy(doc, node, enemy):
     for point in enemy.patrolpoints:
         create_patrol_point(doc, patrol_points_element, point)
 
-def build_level(player_pos, enemies, coins, walls, file):
+def build_level(player_pos, end_pos, enemies, coins, walls, file):
     document = xml.dom.minidom.Document()
     level = document.createElement("level")
     level.setAttribute("index", "0")
@@ -52,6 +52,11 @@ def build_level(player_pos, enemies, coins, walls, file):
     level.appendChild(player_pos_element)
 
     create_position(document,player_pos_element,player_pos.x,player_pos.y)
+
+    end_pos_element = document.createElement("end_position")
+    level.appendChild(end_pos_element)
+
+    create_position(document,end_pos_element,end_pos.x,end_pos.y)
 
 
 
