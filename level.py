@@ -14,7 +14,7 @@ from color import *
 HEIGHT = 480
 levels = [
 
-    parse_xml("test4.xml"),
+    parse_xml("test.xml"),
 
     {
     "player_position" : Vector2(30, HEIGHT / 2),

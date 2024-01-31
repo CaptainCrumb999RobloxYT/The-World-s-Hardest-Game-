@@ -12,9 +12,11 @@ image = PhotoImage(file="banner.png")
 img = Label(root, image=image)
 img.pack()
 def play():
+    root.destroy()
     os.system('python main.py')
     exit()
 def edit():
+    root.destroy()
     os.system('python editor.py')
     exit()
 B = Button(root, text ="Play", command = play)
